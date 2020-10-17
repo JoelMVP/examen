@@ -1,5 +1,4 @@
 <?php
-echo "<br />";
 echo "header";
 ?>
 <!DOCTYPE html>

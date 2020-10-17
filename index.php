@@ -9,6 +9,7 @@ include("layout/header.php");
         <input type="submit" class="" value="enviar">
     </form>
 </div>
+<a href="aprobados.php">aprobados</a>
 <?php
 include("layout/footer.php");
 ?>

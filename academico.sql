@@ -23,15 +23,6 @@ CREATE TABLE notas (
 
 --Introducir valores a las tablas
 --identificador
---01->Chuquisaca
---02->La Paz
---03->Cochabamba
---04->Oruro
---05->Potosi
---06->Tarija
---07->Santa Cruz
---08->Beni
---09->Pando
 insert into identificador values 
 (28340389,'ANTONIO PORTILLA TORRECILLA','1992-04-02','04'),
 (03751440,'AURORA BRU TORRES','1980-02-20','01'),
@@ -66,31 +57,45 @@ insert into notas (ci, materia, nota) values
 
 
 --consultas
+--identificador
+--01->Chuquisaca
+--02->La Paz
+--03->Cochabamba
+--04->Oruro
+--05->Potosi
+--06->Tarija
+--07->Santa Cruz
+--08->Beni
+--09->Pando
+
 --Respuesta del 2 sum
 SELECT
-    sum(case when a.LugarR like '01' then 1 else 0 end) LaPaz,
-    sum(case when a.LugarR like '02' then 1 else 0 end) Cochabamba,
-    sum(case when a.LugarR like '03' then 1 else 0 end) SantaCruz,
-    sum(case when a.LugarR like '04' then 1 else 0 end) Beni,
-    sum(case when a.LugarR like '05' then 1 else 0 end) Oruro,
-    sum(case when a.LugarR like '06' then 1 else 0 end) Potosi,
-    sum(case when a.LugarR like '07' then 1 else 0 end) Tarija,
-    sum(case when a.LugarR like '08' then 1 else 0 end) Chuquisaca,
+    sum(case when a.LugarR like '01' then 1 else 0 end) Chuquisaca,
+    sum(case when a.LugarR like '02' then 1 else 0 end) LaPaz,
+    sum(case when a.LugarR like '03' then 1 else 0 end) Cochabamba,
+    sum(case when a.LugarR like '04' then 1 else 0 end) Oruro,
+    sum(case when a.LugarR like '05' then 1 else 0 end) Potosi,
+    sum(case when a.LugarR like '06' then 1 else 0 end) Tarija,
+    sum(case when a.LugarR like '07' then 1 else 0 end) SantaCruz,
+    sum(case when a.LugarR like '08' then 1 else 0 end) Beni,
     sum(case when a.LugarR like '09' then 1 else 0 end) Pando
 FROM (SELECT ci,LugarR FROM identificador) as a, notas as n 
 where a.ci like n.ci and n.nota > 50
+
 --Respuesta del 2 pivot
 select * from
 (select
-    (case when a.LugarR like '01' then 'La Paz' 
-        when a.LugarR like '02' then 'Cochabamba' 
-        when a.LugarR like '03' then 'Santa Cruz' 
-        when a.LugarR like '04' then 'Beni' 
-        when a.LugarR like '05' then 'Oruro' 
-        when a.LugarR like '06' then 'Potosi' 
-        when a.LugarR like '07' then 'Tarija' 
-        when a.LugarR like '08' then 'Chuquisaca' 
-        when a.LugarR like '09' then 'Pando' end) Departamento,
+    (case 
+        when a.LugarR like '01' then 'Chuquisaca'
+		when a.LugarR like '02' then 'La Paz' 
+        when a.LugarR like '03' then 'Cochabamba' 
+        when a.LugarR like '04' then 'Oruro' 
+        when a.LugarR like '05' then 'Potosi' 
+        when a.LugarR like '06' then 'Tarija' 
+        when a.LugarR like '07' then 'Santa Cruz' 
+        when a.LugarR like '08' then 'Beni' 
+        when a.LugarR like '09' then 'Pando' 
+	end)Departamento,
 	(case when n.nota > 50 then 1 else 0 end) as app
 FROM (select ci,LugarR from identificador) as a, notas as n 
 where a.ci like n.ci) as aprovados
