@@ -18,27 +18,19 @@ CREATE TABLE notas (
     id int primary key AUTO_INCREMENT,
     ci int,
     materia varchar(30),
-    nota int
+    nota float
 );
-SELECT a.ci,(a.lugarnaci),nota,materia
-FROM (SELECT ci,lugarnaci
-FROM identificador) as a, notas as n
-where a.ci like n.ci
 
-SELECT a.ci,(a.lugarnaci),nota,materia
-FROM (SELECT ci,lugarnaci
-FROM identificador) as a, notas as n
-where a.ci like n.ci
 --Introducir valores a las tablas
 --identificador
---01->La Paz
---02->Cochabamba
---03->Santa Cruz
---04->Beni
---05->Oruro
---06->Potosi
---07->Tarija
---08->Chuquisaca
+--01->Chuquisaca
+--02->La Paz
+--03->Cochabamba
+--04->Oruro
+--05->Potosi
+--06->Tarija
+--07->Santa Cruz
+--08->Beni
 --09->Pando
 insert into identificador values 
 (28340389,'ANTONIO PORTILLA TORRECILLA','1992-04-02','04'),
@@ -74,43 +66,40 @@ insert into notas (ci, materia, nota) values
 
 
 --consultas
-SELECT COUNT(*),LugarR FROM notas as n,identificador as i WHERE n.ci like i.ci GROUP BY LugarR;
-SELECT * from notas as n WHERE n.nota > 50;
-SELECT COUNT(*),LugarR FROM notas as n,identificador as i WHERE n.ci like i.ci AND n.nota > 50 GROUP BY LugarR;
-
-SELECT ci,
-(case 
-	when i.LugarR like '01' then 'La Paz'
-	when i.LugarR like '02' then 'Cochabamba'
- 	when i.LugarR like '03' then 'Santa Cruz'
- 	when i.LugarR like '04' then 'Beni'
- 	when i.LugarR like '05' then 'Oruro'
- 	when i.LugarR like '06' then 'Potosi'
- 	when i.LugarR like '07' then 'Tarija'
- 	when i.LugarR like '08' then 'Chuquisaca'
- 	when i.LugarR like '09' then 'Pando'
-	end) as depto
-FROM identificador as i;
-
-SELECT count(a.LugarR) cantidad,(a.LugarR),(case 
-	when a.LugarR like '01' then 'La Paz'
-	when a.LugarR like '02' then 'Cochabamba'
- 	when a.LugarR like '03' then 'Santa Cruz'
- 	when a.LugarR like '04' then 'Beni'
- 	when a.LugarR like '05' then 'Oruro'
- 	when a.LugarR like '06' then 'Potosi'
- 	when a.LugarR like '07' then 'Tarija'
- 	when a.LugarR like '08' then 'Chuquisaca'
- 	when a.LugarR like '09' then 'Pando'
-	end) Departamento
-FROM (SELECT ci,LugarR
-FROM identificador) as a, notas as n
-where a.ci like n.ci
-and n.nota > 50
-GROUP by a.LugarR;
-
-
-
-SELECT COUNT(i.LugarR),n.ci,i.nombreC,n.nota 
-FROM notas as n,identificador as i 
-WHERE n.nota > 50 AND i.ci LIKE n.ci GROUP BY i.LugarR;
+--Respuesta del 2 sum
+SELECT
+    sum(case when a.LugarR like '01' then 1 else 0 end) LaPaz,
+    sum(case when a.LugarR like '02' then 1 else 0 end) Cochabamba,
+    sum(case when a.LugarR like '03' then 1 else 0 end) SantaCruz,
+    sum(case when a.LugarR like '04' then 1 else 0 end) Beni,
+    sum(case when a.LugarR like '05' then 1 else 0 end) Oruro,
+    sum(case when a.LugarR like '06' then 1 else 0 end) Potosi,
+    sum(case when a.LugarR like '07' then 1 else 0 end) Tarija,
+    sum(case when a.LugarR like '08' then 1 else 0 end) Chuquisaca,
+    sum(case when a.LugarR like '09' then 1 else 0 end) Pando
+FROM (SELECT ci,LugarR FROM identificador) as a, notas as n 
+where a.ci like n.ci and n.nota > 50
+--Respuesta del 2 pivot
+select * from
+(select
+    (case when a.LugarR like '01' then 'La Paz' 
+        when a.LugarR like '02' then 'Cochabamba' 
+        when a.LugarR like '03' then 'Santa Cruz' 
+        when a.LugarR like '04' then 'Beni' 
+        when a.LugarR like '05' then 'Oruro' 
+        when a.LugarR like '06' then 'Potosi' 
+        when a.LugarR like '07' then 'Tarija' 
+        when a.LugarR like '08' then 'Chuquisaca' 
+        when a.LugarR like '09' then 'Pando' end) Departamento,
+	(case when n.nota > 50 then 1 else 0 end) as app
+FROM (select ci,LugarR from identificador) as a, notas as n 
+where a.ci like n.ci) as aprovados
+Pivot(sum(app) For Departamento in ([La Paz],
+									[Cochabamba],
+									[Santa Cruz],
+									[Beni],
+									[Oruro],
+									[Potosi],
+									[Tarija],
+									[Chuquisaca],
+									[Pando])) as pvt;
