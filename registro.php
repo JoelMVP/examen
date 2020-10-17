@@ -2,11 +2,11 @@
 include("actions/conexion.php");
 include("layout/header.php");
 ?>
-<div class="index">
-    <form method="POST" action="actions/ingresar.php">
+<div class="registro">
+    <form method="POST" action="">
         <input class="" type="text" name="ci" placeholder="ci" autofocus required>
         <input class="" type="password" name="password" placeholder="Password" required>
-        <input type="submit" class="" value="enviar">
+        <input type="submit" class="" name="registrar" value="Registrarme">
     </form>
 </div>
 <a href="aprobados.php">aprobados</a>
