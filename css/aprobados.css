@@ -1,0 +1,23 @@
+.table__body {
+  margin: 60px auto;
+  border-collapse: collapse;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.table__body thead tr {
+  background: var(--color4);
+  color: var(--color1);
+  font-weight: bold;
+  margin: 0 5px;
+  text-align: left;
+}
+.table__body th,
+.table__body td {
+  padding: 10px 7px;
+}
+.table__body tbody tr {
+  border-bottom: 1px solid var(--color4);
+  color: var(--color3);
+  background: var(--color2);
+}
