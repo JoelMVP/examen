@@ -7,50 +7,10 @@ if (!isset($_SESSION['login'])) {
 include("actions/conexion.php");
 include("layout/header.php");
 include("actions/Preferencia.php");
-
-// echo "<br />";
-// echo $_SESSION['ci'];
-// echo "<br />";
-// echo $_SESSION['clave'];
-// echo "<br />";
-// echo $_SESSION['login'];
-// echo "<br />";
-// echo $_SESSION['imagen'];
-// echo "<br />";
-// echo $_SESSION['color'];
-// echo "<br />";
-// echo $_SESSION['nombre'];
-// echo "<br />";
-// echo $_SESSION['fecha'];
-// echo "<br />";
-// echo $_SESSION['lugar'];
-// echo "<br />";
-// switch ($_SESSION['color']) {
-//     case 1:
-//         echo "<style>
-//         :root {--color1: #fff;--color2: #f6faff;--color3: #00d8ff;--color4: #0052ff;}
-//         </style>";
-//         break;
-//     case 2:
-//         echo "<style>
-//         :root {--color1: #000;--color2: #242424;--color3: #fff;--color4: #FE752F;}
-//         </style>";
-//         break;
-//     case 3:
-//         echo "<style>
-//         :root {--color1: #000;--color2: #242424;--color3: #fff;--color4: #1DB46F;}
-//         </style>";
-//         break;
-//     default:
-//         echo "<style>
-//         :root {--color1: #fff;--color2: #f6faff;--color3: #00d8ff;--color4: #0052ff;}
-//         </style>";
-//         break;
-// }
 ?>
 <div class="index">
     <div class="home__title">
-        <h1 class="home__h1">Usuario: <?= $_SESSION['login'], $_SESSION['color'] ?> </h1>
+        <h1 class="home__h1">Usuario: <?= $_SESSION['login'] ?> </h1>
         <a class="nav-link" href="actions/salir.php">Cerrar Sesion</a>
     </div>
     <form action="actions/cambiarPreferencia.php" class="home__form" method="POST" enctype="multipart/form-data">
@@ -61,28 +21,28 @@ include("actions/Preferencia.php");
                     <span>
                         <?= $_SESSION['ci'] ?>
                     </span>
-                    <i class="fas fa-user-lock"></i>
+                    <i class="fas fa-id-card"></i>
                 </div>
                 <span>Nombre Completo</span>
                 <div class="data__container">
                     <span>
                         <?= $_SESSION['nombre'] ?>
                     </span>
-                    <i class="fas fa-user-lock"></i>
+                    <i class="fas fa-user"></i>
                 </div>
                 <span>Cuidad</span>
                 <div class="data__container">
                     <span>
                         <?= $_SESSION['lugar'] ?>
                     </span>
-                    <i class="fas fa-user-lock"></i>
+                    <i class="fas fa-map-marked-alt"></i>
                 </div>
                 <span>Fecha de Nacimiento</span>
                 <div class="data__container">
                     <span>
                         <?= $_SESSION['fecha'] ?>
                     </span>
-                    <i class="fas fa-user-lock"></i>
+                    <i class="fas fa-calendar-day"></i>
                 </div>
             </div>
             <div class="home__options">

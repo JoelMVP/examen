@@ -20,9 +20,6 @@ if ($ci == '' or $password == '') {
             $_SESSION['nombre'] = $row['nombreC'];
             $_SESSION['fecha'] = $row['fechaNac'];
             $_SESSION['lugar'] = $row['LugarR'];
-            // $sl = "Select * from identificador where ci='$ci'";
-            // $rs = mysqli_query($conn, $sl);
-            // $rw = mysqli_fetch_array($rs);
             header('Location: ../home.php');
         } else {
             header('Location: ../index.php');
